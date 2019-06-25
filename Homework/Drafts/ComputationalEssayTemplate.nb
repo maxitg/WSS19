@@ -8,7 +8,3933 @@ Notebook[
       "Title",
       CellTags -> "Title"
      ],
-     Cell["Maksim Piskunov", "Text"]
+     Cell["Maksim Piskunov", "Text"],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Prerequisites", "Section"],
+        Cell[
+         TextData[
+          {
+           "We will be using ",
+           ButtonBox[
+            "SetReplace package",
+            BaseStyle -> "Hyperlink",
+            ButtonData -> {URL["https://github.com/maxitg/SetReplace"], None},
+            ButtonNote -> "https://github.com/maxitg/SetReplace"
+           ],
+           " for this essay."
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[
+              {
+               "If",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     RowBox[{"PacletInformation", "[", "\"SetReplace\"", "]"}],
+                     " ",
+                     "===",
+                     " ",
+                     RowBox[{"{", "}"}]
+                    }
+                   ],
+                   " ",
+                   "&&",
+                   "\n",
+                   "\t\t",
+                   RowBox[
+                    {
+                     "ChoiceDialog",
+                     "[",
+                     "\"SetReplace paclet needs to be installed. Proceed?\"",
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 ",",
+                 "\n",
+                 "\t",
+                 RowBox[
+                  {
+                   "PacletInstall",
+                   "[",
+                   "\n",
+                   "\t\t",
+                   "\"https://github.com/maxitg/SetReplace/releases/download/0.1/SetReplace-0.1.paclet\"",
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ],
+             ";"
+            }
+           ],
+           "\n",
+           RowBox[{RowBox[{"<<", " ", "SetReplace`"}], ";"}]
+          }
+         ],
+         "Code",
+         CellLabel -> "In[37]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Introduction", "Section"],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Set Replace", "Subsection"],
+           Cell[
+            TextData[
+             {
+              "Set Replace is a system that matches an unordered subset of expressions with a pattern, and replaces it with another subset. For example, consider a system that takes lists of ",
+              Cell[BoxData[FormBox["1", TraditionalForm]]],
+              " and ",
+              Cell[BoxData[FormBox["2", TraditionalForm]]],
+              " elements, joins them, and adding ",
+              Cell[BoxData[FormBox[RowBox[{"-", "1"}], TraditionalForm]]],
+              " at the end:"
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "SetReplace",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "{",
+                   RowBox[
+                    {
+                     RowBox[{"{", "1", "}"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"4", ",", "5"}], "}"}],
+                     ",",
+                     RowBox[{"{", "3", "}"}],
+                     ",",
+                     RowBox[{"{", "6", "}"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"1", ",", "6"}], "}"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"3", ",", "4"}], "}"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"8", ",", "9"}], "}"}],
+                     ",",
+                     RowBox[{"{", "10", "}"}]
+                    }
+                   ],
+                   "}"
+                  }
+                 ],
+                 ",",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       RowBox[{"{", "a_", "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"b_", ",", "c_"}], "}"}]
+                      }
+                     ],
+                     "}"
+                    }
+                   ],
+                   "\[RuleDelayed]",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[{"a", ",", "b", ",", "c", ",", RowBox[{"-", "1"}]}],
+                       "}"
+                      }
+                     ],
+                     "}"
+                    }
+                   ]
+                  }
+                 ],
+                 ",",
+                 "4"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[59]:="
+           ],
+           Cell[
+            TextData[
+             {
+              "Here we will only consider rules in which all elements are anonymous, that is, rules that never reference any elements explicitly. We can use a special syntax for that, for example, consider the same as the above, but without the ",
+              Cell[BoxData[FormBox[RowBox[{"-", "1"}], TraditionalForm]]],
+              " at the end."
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "output12to3",
+               "=",
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       RowBox[{"{", "1", "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"4", ",", "5"}], "}"}],
+                       ",",
+                       RowBox[{"{", "3", "}"}],
+                       ",",
+                       RowBox[{"{", "6", "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"1", ",", "6"}], "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"3", ",", "4"}], "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"8", ",", "9"}], "}"}],
+                       ",",
+                       RowBox[{"{", "10", "}"}]
+                      }
+                     ],
+                     "}"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[{"{", "1", "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"2", ",", "3"}], "}"}]
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       "\[Rule]",
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[{"{", RowBox[{"1", ",", "2", ",", "3"}], "}"}],
+                         "}"
+                        }
+                       ]
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "4"
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[63]:="
+           ],
+           Cell[
+            "One can also think of these systems are directed hypergraph substitution systems, where each list of the set represents an edge. For instance, we can plot the output above, coloring each edge in a different color",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "HypergraphPlot",
+               "[",
+               RowBox[
+                {
+                 "output12to3",
+                 ",",
+                 RowBox[{"VertexLabels", "\[Rule]", "\"Name\""}]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[65]:="
+           ],
+           Cell[
+            TextData[
+             {
+              "If we specify vertices in the rule output that do not appear in its input, they will be created and assigned a unique name. For instance, consider the following rule, where ",
+              Cell[BoxData[FormBox["3", TraditionalForm]]],
+              " is a newly created vertex"
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "(",
+                 RowBox[
+                  {
+                   RowBox[{"rule", "[", "1", "]"}],
+                   "=",
+                   RowBox[
+                    {
+                     "(",
+                     RowBox[
+                      {
+                       RowBox[
+                        {"{", RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}], "}"}
+                       ],
+                       "\[Rule]",
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[{"{", RowBox[{"1", ",", "3"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"2", ",", "3"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"3", ",", "2"}], "}"}]
+                          }
+                         ],
+                         "}"
+                        }
+                       ]
+                      }
+                     ],
+                     ")"
+                    }
+                   ]
+                  }
+                 ],
+                 ")"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["424", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                Function[
+                 Map[
+                  SetReplace`HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+                  #1
+                 ]
+                ],
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[158]:="
+           ],
+           Cell[
+            "After a few steps, we get newly created vertices",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "(",
+                 RowBox[
+                  {
+                   "SetReplace",
+                   "[",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       RowBox[{"init", "[", "1", "]"}],
+                       "=",
+                       RowBox[
+                        {"{", RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}], "}"}
+                       ]
+                      }
+                     ],
+                     ",",
+                     RowBox[
+                      {
+                       "FromAnonymousRules",
+                       "[",
+                       RowBox[{"rule", "[", "1", "]"}],
+                       "]"
+                      }
+                     ],
+                     ",",
+                     "3"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ")"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["256", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[159]:="
+           ],
+           Cell["After more steps, we get", "Text"],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[{"init", "[", "1", "]"}],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[{"rule", "[", "1", "]"}],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "4000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[169]:="
+           ],
+           Cell["Here is another example", "Text"],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "(",
+                 RowBox[
+                  {
+                   RowBox[{"rule", "[", "2", "]"}],
+                   "=",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ],
+                     "\[Rule]",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"1", ",", "3"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"3", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"3", ",", "2"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ],
+                 ")"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["424", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                Function[
+                 Map[
+                  SetReplace`HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+                  #1
+                 ]
+                ],
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[161]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     RowBox[{"init", "[", "2", "]"}],
+                     "=",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ]
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[{"rule", "[", "2", "]"}],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "4000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[170]:="
+           ],
+           Cell["And yet another example", "Text"],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "(",
+                 RowBox[
+                  {
+                   RowBox[{"rule", "[", "3", "]"}],
+                   "=",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"0", ",", "2"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"0", ",", "3"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ],
+                     "\[Rule]",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"4", ",", "5"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"5", ",", "4"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"4", ",", "6"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"6", ",", "4"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"5", ",", "6"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"6", ",", "5"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"4", ",", "1"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"5", ",", "2"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"6", ",", "3"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"1", ",", "6"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"3", ",", "4"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ],
+                 ")"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["424", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                Function[
+                 Map[
+                  SetReplace`HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+                  #1
+                 ]
+                ],
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[163]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     RowBox[{"init", "[", "3", "]"}],
+                     "=",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}],
+                         ",",
+                         RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}]
+                        }
+                       ],
+                       "}"
+                      }
+                     ]
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[{"rule", "[", "3", "]"}],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "4000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[171]:="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Enumeration", "Subsection"],
+           Cell[
+            "The systems considered above are fairly large. They contain",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "Length",
+                   "@",
+                   RowBox[
+                    {
+                     "Flatten",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[{"init", "[", "#", "]"}],
+                           ",",
+                           RowBox[{"rule", "[", "#", "]"}]
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       "/.",
+                       RowBox[{"Rule", "\[Rule]", "List"}]
+                      }
+                     ],
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 "&"
+                }
+               ],
+               "/@",
+               RowBox[{"Range", "[", "3", "]"}]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[168]:="
+           ],
+           Cell[
+            "vertices respectively (no unique vertices, but essentially all edges concatenated), including both the rule and the initial condition.",
+            "Text"
+           ],
+           Cell[
+            "It is interesting, however, to consider the shortest possible systems, and see what classes of behaviour they can produce.",
+            "Text"
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Enumeration code", "Section"],
+        Cell[
+         "The idea is that we will consider all sequences of numbers (which will represents the vertices) of a given size, and then we will split each sequence into the initial condition and one or multiple rules.",
+         "Text"
+        ],
+        Cell[
+         "The first task is to enumerate all sequences of vertices up to a given size. Consider the following code:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[
+              {"tuples", "[", RowBox[{"min_", ",", " ", "0"}], "]"}
+             ],
+             " ",
+             ":=",
+             " ",
+             RowBox[{"{", RowBox[{"{", "}"}], "}"}]
+            }
+           ],
+           "\n",
+           RowBox[
+            {
+             RowBox[
+              {"tuples", "[", RowBox[{"min_", ",", " ", "count_"}], "]"}
+             ],
+             " ",
+             ":=",
+             " ",
+             RowBox[
+              {
+               RowBox[
+                {"tuples", "[", RowBox[{"min", ",", " ", "count"}], "]"}
+               ],
+               " ",
+               "=",
+               "\n",
+               "\t",
+               RowBox[
+                {
+                 "Flatten",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "Table",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           RowBox[
+                            {
+                             "Join",
+                             "[",
+                             RowBox[{RowBox[{"{", "k", "}"}], ",", " ", "#"}],
+                             "]"
+                            }
+                           ],
+                           " ",
+                           "&"
+                          }
+                         ],
+                         " ",
+                         "/@",
+                         " ",
+                         RowBox[
+                          {
+                           "tuples",
+                           "[",
+                           RowBox[
+                            {
+                             RowBox[
+                              {
+                               "Max",
+                               "[",
+                               RowBox[
+                                {RowBox[{"k", " ", "+", " ", "1"}], ",", " ", "min"}
+                               ],
+                               "]"
+                              }
+                             ],
+                             ",",
+                             " ",
+                             RowBox[{"count", " ", "-", " ", "1"}]
+                            }
+                           ],
+                           "]"
+                          }
+                         ]
+                        }
+                       ],
+                       ",",
+                       " ",
+                       RowBox[
+                        {"{", RowBox[{"k", ",", " ", "1", ",", " ", "min"}], "}"}
+                       ]
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   " ",
+                   "1"
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ]
+            }
+           ],
+           "\n",
+           RowBox[
+            {
+             RowBox[{"tuples", "[", "count_", "]"}],
+             " ",
+             ":=",
+             " ",
+             RowBox[
+              {"tuples", "[", RowBox[{"1", ",", " ", "count"}], "]"}
+             ]
+            }
+           ]
+          }
+         ],
+         "Code",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[
+         TextData[
+          {
+           "That does not enumerate all sequences, but only the ones for which every prefix contains all integers in ",
+           Cell[BoxData[RowBox[{"Range", "[", "n", "]"}]], "Input"],
+           " for some ",
+           Cell[BoxData[FormBox["n", TraditionalForm]]],
+           "."
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         "It works by recursing into suffixes after selecting the integer in a given suffix which is no larger than the integers that came before. So, for example",
+         "Text"
+        ],
+        Cell[
+         BoxData[RowBox[{"tuples", "[", "4", "]"}]],
+         "Input",
+         CellLabel -> "In[14]:="
+        ],
+        Cell[
+         TextData[
+          {
+           "Next, we will need to partition these lists of numbers into edges. This is done by inserting list brakes between neighboring numbers in all possible ways (which are ",
+           Cell[
+            BoxData[
+             FormBox[
+              SuperscriptBox["2", RowBox[{"n", "-", "1"}]],
+              TraditionalForm
+             ]
+            ]
+           ],
+           ")"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[{"allPartitions", "[", "s_", "]"}],
+            " ",
+            ":=",
+            " ",
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "(",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "SplitBy",
+                        "[",
+                        RowBox[
+                         {
+                          "#",
+                          ",",
+                          " ",
+                          RowBox[
+                           {
+                            RowBox[{"#", " ", "\[Equal]", " ", RowBox[{"-", "1"}]}],
+                            " ",
+                            "&"
+                           }
+                          ]
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      " ",
+                      "/.",
+                      " ",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"0", " ", "\[Rule]", " ", "Nothing"}],
+                          ",",
+                          " ",
+                          RowBox[
+                           {
+                            RowBox[{"{", RowBox[{"-", "1"}], "}"}],
+                            " ",
+                            "\[Rule]",
+                            " ",
+                            "Nothing"
+                           }
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    " ",
+                    "&"
+                   }
+                  ],
+                  ")"
+                 }
+                ],
+                "\n",
+                "\t",
+                "/@",
+                " ",
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "(",
+                    RowBox[
+                     {
+                      RowBox[{"Riffle", "[", RowBox[{"s", ",", " ", "#"}], "]"}],
+                      " ",
+                      "&"
+                     }
+                    ],
+                    ")"
+                   }
+                  ],
+                  "\n",
+                  "\t",
+                  "/@",
+                  " ",
+                  RowBox[
+                   {
+                    "Table",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "-",
+                        RowBox[
+                         {
+                          "IntegerDigits",
+                          "[",
+                          RowBox[
+                           {
+                            "k",
+                            ",",
+                            " ",
+                            "2",
+                            ",",
+                            " ",
+                            RowBox[
+                             {RowBox[{"Length", "[", "s", "]"}], " ", "-", " ", "1"}
+                            ]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       }
+                      ],
+                      ",",
+                      " ",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          "k",
+                          ",",
+                          " ",
+                          "0",
+                          ",",
+                          " ",
+                          RowBox[
+                           {
+                            SuperscriptBox[
+                             "2",
+                             RowBox[
+                              {RowBox[{"Length", "[", "s", "]"}], " ", "-", " ", "1"}
+                             ]
+                            ],
+                            " ",
+                            "-",
+                            " ",
+                            "1"
+                           }
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    "]"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ]
+           }
+          ]
+         ],
+         "Code",
+         CellLabel -> "In[6]:="
+        ],
+        Cell["For instance,", "Text"],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "allPartitions",
+            "[",
+            RowBox[
+             {"{", RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[15]:="
+        ],
+        Cell[
+         "Finally, we will need to split the rules into input edges and output edges",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[{"partitionsInTwo", "[", "s_", "]"}],
+            " ",
+            ":=",
+            " ",
+            RowBox[
+             {
+              "Table",
+              "[",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "s",
+                      "[",
+                      RowBox[{"[", RowBox[{"1", " ", ";;", " ", "k"}], "]"}],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    " ",
+                    RowBox[
+                     {
+                      "s",
+                      "[",
+                      RowBox[
+                       {
+                        "[",
+                        RowBox[
+                         {
+                          RowBox[{"k", " ", "+", " ", "1"}],
+                          " ",
+                          ";;",
+                          " ",
+                          RowBox[{"Length", "[", "s", "]"}]
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  "}"
+                 }
+                ],
+                ",",
+                " ",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    "k",
+                    ",",
+                    " ",
+                    "1",
+                    ",",
+                    " ",
+                    RowBox[
+                     {RowBox[{"Length", "[", "s", "]"}], " ", "-", " ", "1"}
+                    ]
+                   }
+                  ],
+                  "}"
+                 }
+                ]
+               }
+              ],
+              "]"
+             }
+            ]
+           }
+          ]
+         ],
+         "Code",
+         CellLabel -> "In[7]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "partitionsInTwo",
+            "[",
+            RowBox[
+             {"{", RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[16]:="
+        ],
+        Cell[
+         "Now we have all the pieces, we can produce all rules up to a given size. We don\[CloseCurlyQuote]t care about the order of output edges, so we deduplicate them",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[{"allRules", "[", "n_", "]"}],
+            " ",
+            ":=",
+            " ",
+            RowBox[
+             {
+              RowBox[{"allRules", "[", "n", "]"}],
+              " ",
+              "=",
+              " ",
+              RowBox[
+               {
+                "(",
+                RowBox[
+                 {
+                  "Union",
+                  "\n",
+                  "\t",
+                  "@",
+                  " ",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "(",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "Map",
+                          "[",
+                          RowBox[
+                           {"Sort", ",", " ", "#", ",", " ", RowBox[{"{", "2", "}"}]}
+                          ],
+                          "]"
+                         }
+                        ],
+                        " ",
+                        "&"
+                       }
+                      ],
+                      ")"
+                     }
+                    ],
+                    "\n",
+                    "\t",
+                    "@",
+                    " ",
+                    RowBox[
+                     {
+                      "(",
+                      RowBox[
+                       {
+                        "Rule",
+                        "\n",
+                        "\t\t",
+                        "@@@",
+                        " ",
+                        RowBox[
+                         {
+                          RowBox[
+                           {
+                            "(",
+                            RowBox[
+                             {
+                              RowBox[{"Flatten", "[", RowBox[{"#", ",", " ", "1"}], "]"}],
+                              " ",
+                              "&"
+                             }
+                            ],
+                            ")"
+                           }
+                          ],
+                          "\n",
+                          "\t\t",
+                          "@",
+                          " ",
+                          RowBox[
+                           {
+                            "(",
+                            RowBox[
+                             {
+                              "partitionsInTwo",
+                              "\n",
+                              "\t\t\t",
+                              "/@",
+                              " ",
+                              RowBox[
+                               {
+                                RowBox[
+                                 {
+                                  "(",
+                                  RowBox[
+                                   {
+                                    RowBox[{"Flatten", "[", RowBox[{"#", ",", " ", "1"}], "]"}],
+                                    " ",
+                                    "&"
+                                   }
+                                  ],
+                                  ")"
+                                 }
+                                ],
+                                "\n",
+                                "\t\t\t",
+                                "@",
+                                " ",
+                                RowBox[
+                                 {
+                                  "(",
+                                  RowBox[
+                                   {
+                                    "allPartitions",
+                                    "\n",
+                                    "\t\t\t\t",
+                                    "/@",
+                                    " ",
+                                    RowBox[{"tuples", "[", "n", "]"}]
+                                   }
+                                  ],
+                                  ")"
+                                 }
+                                ]
+                               }
+                              ]
+                             }
+                            ],
+                            ")"
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      ")"
+                     }
+                    ]
+                   }
+                  ]
+                 }
+                ],
+                ")"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         ],
+         "Code",
+         CellLabel -> "In[8]:="
+        ],
+        Cell[
+         BoxData[RowBox[{"allRules", "[", "3", "]"}]],
+         "Input",
+         CellLabel -> "In[17]:="
+        ],
+        Cell[
+         "Next we can produce all possible multiple rule sets by enumerating all possible partitions of rule sizes, and then removing rules with identical inputs, and finally deduplicating identical (but differently ordered) rule sets.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[{"allMultirules", "[", "0", "]"}],
+             " ",
+             ":=",
+             " ",
+             RowBox[{"{", "}"}]
+            }
+           ],
+           "\n",
+           RowBox[
+            {
+             RowBox[{"allMultirules", "[", "n_", "]"}],
+             " ",
+             ":=",
+             " ",
+             RowBox[
+              {
+               RowBox[{"allMultirules", "[", "n", "]"}],
+               " ",
+               "=",
+               " ",
+               RowBox[
+                {
+                 "Union",
+                 "[",
+                 "\n",
+                 "\t",
+                 RowBox[
+                  {
+                   "Sort",
+                   "\n",
+                   "\t\t",
+                   "/@",
+                   " ",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "Select",
+                       "[",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "DuplicateFreeQ",
+                           "[",
+                           RowBox[
+                            {
+                             "#",
+                             "\[LeftDoubleBracket]",
+                             RowBox[{"All", ",", " ", "1"}],
+                             "\[RightDoubleBracket]"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         " ",
+                         "&"
+                        }
+                       ],
+                       "]"
+                      }
+                     ],
+                     "\n",
+                     "\t\t",
+                     "@",
+                     " ",
+                     RowBox[
+                      {
+                       "Flatten",
+                       "[",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "Tuples",
+                           " ",
+                           "/@",
+                           " ",
+                           RowBox[
+                            {
+                             "Map",
+                             "[",
+                             RowBox[
+                              {
+                               "allRules",
+                               ",",
+                               " ",
+                               RowBox[{"IntegerPartitions", "[", "n", "]"}],
+                               ",",
+                               " ",
+                               RowBox[{"{", "2", "}"}]
+                              }
+                             ],
+                             "]"
+                            }
+                           ]
+                          }
+                         ],
+                         ",",
+                         " ",
+                         "1"
+                        }
+                       ],
+                       "]"
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ],
+         "Code",
+         CellLabel -> "In[9]:="
+        ],
+        Cell[
+         TextData[
+          {
+           "As an example, here are all pairs of rules of total size ",
+           Cell[BoxData[FormBox["5", TraditionalForm]]]
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "Select",
+              "[",
+              RowBox[
+               {
+                RowBox[
+                 {RowBox[{"Length", "[", "#", "]"}], "\[Equal]", "2"}
+                ],
+                "&"
+               }
+              ],
+              "]"
+             }
+            ],
+            "@",
+            RowBox[{"allMultirules", "[", "5", "]"}]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[18]:="
+        ],
+        Cell[
+         "For initial conditions, we will need to enumerate all graphs. This requires different code because we don\[CloseCurlyQuote]t care about the order of edges here, whereas we did care about it while generating rules before deciding which edges belong to input or output.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[{"allGraphs", "[", "0", "]"}],
+             " ",
+             ":=",
+             " ",
+             RowBox[{"{", "}"}]
+            }
+           ],
+           "\n",
+           RowBox[
+            {
+             RowBox[{"allGraphs", "[", "n_", "]"}],
+             " ",
+             ":=",
+             " ",
+             RowBox[
+              {
+               RowBox[{"allGraphs", "[", "n", "]"}],
+               " ",
+               "=",
+               " ",
+               RowBox[
+                {
+                 "Union",
+                 "[",
+                 RowBox[
+                  {
+                   "Sort",
+                   " ",
+                   "/@",
+                   " ",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "(",
+                       RowBox[
+                        {
+                         RowBox[{"Flatten", "[", RowBox[{"#", ",", " ", "1"}], "]"}],
+                         " ",
+                         "&"
+                        }
+                       ],
+                       ")"
+                      }
+                     ],
+                     " ",
+                     "@",
+                     " ",
+                     RowBox[
+                      {
+                       "(",
+                       RowBox[
+                        {
+                         "allPartitions",
+                         "\n",
+                         "\t",
+                         "/@",
+                         " ",
+                         RowBox[{"tuples", "[", "n", "]"}]
+                        }
+                       ],
+                       ")"
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ],
+         "Code",
+         CellLabel -> "In[11]:="
+        ],
+        Cell[
+         BoxData[RowBox[{"allGraphs", "[", "3", "]"}]],
+         "Input",
+         CellLabel -> "In[19]:="
+        ],
+        Cell[
+         "Finally, we can produce the list of all systems by combining initial conditions with multi-rules.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[{"allSystems", "[", "n_", "]"}],
+            " ",
+            ":=",
+            " ",
+            RowBox[
+             {
+              "Flatten",
+              "[",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "Table",
+                  "[",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "Tuples",
+                      "[",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"allGraphs", "[", "k", "]"}],
+                          ",",
+                          " ",
+                          RowBox[
+                           {
+                            "allMultirules",
+                            "[",
+                            RowBox[{"n", " ", "-", " ", "k"}],
+                            "]"
+                           }
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    " ",
+                    RowBox[
+                     {"{", RowBox[{"k", ",", " ", "1", ",", " ", "n"}], "}"}
+                    ]
+                   }
+                  ],
+                  "]"
+                 }
+                ],
+                ",",
+                " ",
+                "1"
+               }
+              ],
+              "]"
+             }
+            ]
+           }
+          ]
+         ],
+         "Code",
+         CellLabel -> "In[13]:="
+        ],
+        Cell[
+         BoxData[RowBox[{"allSystems", "[", "4", "]"}]],
+         "Input",
+         CellLabel -> "In[27]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         TextData[
+          {
+           "Brute-force analysis of sizes ",
+           Cell[
+            BoxData[
+             FormBox[
+              RowBox[{"[", RowBox[{"3", ",", "5"}], "]"}],
+              TraditionalForm
+             ]
+            ]
+           ]
+          }
+         ],
+         "Section"
+        ],
+        Cell[
+         "For size 3, all we only get extremely simple rules",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[{"s3", "=", RowBox[{"allSystems", "[", "3", "]"}]}]
+         ],
+         "Input",
+         CellLabel -> "In[28]:="
+        ],
+        Cell[
+         "All just operate on single-vertex edges, one just keeps the edges as is, the other one replaces the vertex with a new one, but both are definitely class 1 (i.e., produce repetitive behavior).",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              RowBox[
+               {
+                "SetReplace",
+                "[",
+                RowBox[
+                 {
+                  RowBox[
+                   {"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    "FromAnonymousRules",
+                    "[",
+                    RowBox[
+                     {"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}
+                    ],
+                    "]"
+                   }
+                  ],
+                  ",",
+                  "100"
+                 }
+                ],
+                "]"
+               }
+              ],
+              "&"
+             }
+            ],
+            "/@",
+            "s3"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[29]:="
+        ],
+        Cell[
+         TextData[
+          {
+           "Let us now look at sizes up to ",
+           Cell[BoxData[FormBox["5", TraditionalForm]]]
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "s345",
+              "=",
+              RowBox[
+               {
+                "Flatten",
+                "[",
+                RowBox[
+                 {
+                  RowBox[
+                   {"allSystems", "/@", RowBox[{"Range", "[", "5", "]"}]}
+                  ],
+                  ",",
+                  "1"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            ";"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[31]:="
+        ],
+        Cell["There are this number of them:", "Text"],
+        Cell[
+         BoxData[RowBox[{"Length", "[", "s345", "]"}]],
+         "Input",
+         CellLabel -> "In[32]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "Manipulate",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "Column",
+                    "[",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        "k",
+                        ",",
+                        RowBox[
+                         {
+                          "s345",
+                          "\[LeftDoubleBracket]",
+                          "k",
+                          "\[RightDoubleBracket]"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "HypergraphPlot",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[
+                             {
+                              "SetReplace",
+                              "[",
+                              RowBox[
+                               {
+                                RowBox[
+                                 {"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "FromAnonymousRules",
+                                  "[",
+                                  RowBox[
+                                   {"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}
+                                  ],
+                                  "]"
+                                 }
+                                ],
+                                ",",
+                                "100",
+                                ",",
+                                RowBox[{"Method", "\[Rule]", "\"WolframLanguage\""}]
+                               }
+                              ],
+                              "]"
+                             }
+                            ],
+                            ",",
+                            RowBox[{"ImageSize", "\[Rule]", "500"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    "]"
+                   }
+                  ],
+                  "&"
+                 }
+                ],
+                "@",
+                RowBox[
+                 {
+                  "s345",
+                  "\[LeftDoubleBracket]",
+                  "k",
+                  "\[RightDoubleBracket]"
+                 }
+                ]
+               }
+              ],
+              ",",
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  "k",
+                  ",",
+                  "1",
+                  ",",
+                  RowBox[{"Length", "[", "s345", "]"}],
+                  ",",
+                  "1"
+                 }
+                ],
+                "}"
+               }
+              ],
+              ",",
+              RowBox[{"SaveDefinitions", "\[Rule]", "True"}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[35]:="
+        ],
+        Cell[
+         TextData[
+          {
+           "By examining the Manipulate above (you need to evaluate initialization cells to see it), we can see almost all of the systems exhibit class ",
+           Cell[BoxData[FormBox["1", TraditionalForm]]],
+           " (repetitive behavior), with the exception of a few rules that only operate on single-vertex edges, and produce different-degree vertices. These kind of rules are class 2 (nested), but they are still very simple. An example is"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "s345",
+            "\[LeftDoubleBracket]",
+            "66",
+            "\[RightDoubleBracket]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[36]:="
+        ],
+        Cell[
+         "which after some steps produces this nested structure (different colors correspond to different numbers of single-vertex degrees connected to the vertex):",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "SetReplace",
+              "[",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "s345",
+                  "\[LeftDoubleBracket]",
+                  RowBox[{"66", ",", "1"}],
+                  "\[RightDoubleBracket]"
+                 }
+                ],
+                ",",
+                RowBox[
+                 {
+                  "FromAnonymousRules",
+                  "[",
+                  RowBox[
+                   {
+                    "s345",
+                    "\[LeftDoubleBracket]",
+                    RowBox[{"66", ",", "2"}],
+                    "\[RightDoubleBracket]"
+                   }
+                  ],
+                  "]"
+                 }
+                ],
+                ",",
+                "511"
+               }
+              ],
+              "]"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["288", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[63]:="
+        ],
+        Cell[
+         "In conclusion, we mostly get rules of class 1, and a few extremely simple examples of class 2.",
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Analysis of sizes [6, 8]", "Section"],
+        Cell[
+         "For larger sizes, we have to use some kind of automatic filtering algorithm, because otherwise the number of rules we will have to examine will go out of hand.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "s678",
+              "=",
+              RowBox[
+               {
+                "Flatten",
+                "[",
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "allSystems",
+                    "/@",
+                    RowBox[{"Range", "[", RowBox[{"6", ",", "8"}], "]"}]
+                   }
+                  ],
+                  ",",
+                  "1"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            ";"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[14]:="
+        ],
+        Cell["There are now many more rules in total", "Text"],
+        Cell[
+         BoxData[RowBox[{"Length", "[", "s678", "]"}]],
+         "Input",
+         CellLabel -> "In[67]:="
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Growth (number of edges)", "Subsection"],
+           Cell[
+            TextData[
+             {
+              "One thing we can filter on is the total number of edges after ",
+              Cell[BoxData[FormBox["100", TraditionalForm]]],
+              " steps"
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             {
+              RowBox[
+               {
+                RowBox[
+                 {"DistributeDefinitions", "[", "\"SetReplace`\"", "]"}
+                ],
+                ";"
+               }
+              ],
+              "\[IndentingNewLine]",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "edgeCounts678",
+                  "=",
+                  RowBox[
+                   {
+                    "ParallelMap",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "Length",
+                          "[",
+                          RowBox[
+                           {
+                            "SetReplace",
+                            "[",
+                            RowBox[
+                             {
+                              RowBox[
+                               {"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                              ],
+                              ",",
+                              RowBox[
+                               {
+                                "FromAnonymousRules",
+                                "[",
+                                RowBox[
+                                 {"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}
+                                ],
+                                "]"
+                               }
+                              ],
+                              ",",
+                              "100",
+                              ",",
+                              RowBox[{"Method", "\[Rule]", "\"WolframLanguage\""}]
+                             }
+                            ],
+                            "]"
+                           }
+                          ],
+                          "]"
+                         }
+                        ],
+                        "&"
+                       }
+                      ],
+                      ",",
+                      "s678"
+                     }
+                    ],
+                    "]"
+                   }
+                  ]
+                 }
+                ],
+                ";"
+               }
+              ]
+             }
+            ],
+            "Input",
+            CellLabel -> "In[31]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "KeySort",
+               "@",
+               RowBox[{"Counts", "[", "edgeCounts678", "]"}]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[33]:="
+           ],
+           Cell[
+            TextData[
+             {
+              "We can see most rules have either only a very small number of edges (",
+              Cell[
+               BoxData[
+                FormBox[RowBox[{"\[LessEqual]", "6"}], TraditionalForm]
+               ]
+              ],
+              "), or a large one (",
+              Cell[
+               BoxData[
+                FormBox[RowBox[{"\[GreaterEqual]", "34"}], TraditionalForm]
+               ]
+              ],
+              "). In other words, some rules yield growing systems, and some die out quite quickly"
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Histogram",
+               "[",
+               RowBox[
+                {
+                 "edgeCounts678",
+                 ",",
+                 InterpretationBox[
+                  DynamicModuleBox[
+                   {Typeset`open = False},
+                   TemplateBox[
+                    {
+                     "Expression",
+                     "SequenceIcon",
+                     GridBox[
+                      {
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Head: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["Sequence", "IconizedItem"]
+                         }
+                        ]
+                       },
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Length: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["5", "IconizedItem"]
+                         }
+                        ]
+                       },
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Byte count: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["456", "IconizedItem"]
+                         }
+                        ]
+                       }
+                      },
+                      GridBoxAlignment -> {"Columns" -> {{Left}}},
+                      DefaultBaseStyle -> "Column",
+                      GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                     ],
+                     Dynamic[Typeset`open]
+                    },
+                    "IconizedObject"
+                   ]
+                  ],
+                  Sequence[
+                   "Log",
+                   "LogCount",
+                   PlotRange -> All,
+                   Frame -> True,
+                   FrameLabel -> {"# of edges", "# of systems"}
+                  ],
+                  SelectWithContents -> True,
+                  Selectable -> False
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[34]:="
+           ],
+           Cell[
+            "We only care for rules that keep growing, so we can make a filtering function",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[{"ruleGrows", "[", "ruleIndex_", "]"}],
+               ":=",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "edgeCounts678",
+                   "\[LeftDoubleBracket]",
+                   "ruleIndex",
+                   "\[RightDoubleBracket]"
+                  }
+                 ],
+                 "\[GreaterEqual]",
+                 "7"
+                }
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[35]:="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Connected components", "Subsection"],
+           Cell[
+            "The next thing we can examine is the number of connected components. If there are too many, that necessarily implies the system produces repetitive behavior, as there can be no interaction between components that are not connected to one another.",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             {
+              RowBox[
+               {
+                RowBox[
+                 {"DistributeDefinitions", "[", "\"SetReplace`\"", "]"}
+                ],
+                ";"
+               }
+              ],
+              "\[IndentingNewLine]",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "componentCounts678",
+                  "=",
+                  RowBox[
+                   {
+                    "ParallelMap",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "Length",
+                          "@",
+                          RowBox[
+                           {
+                            "ConnectedComponents",
+                            "[",
+                            RowBox[
+                             {
+                              "Graph",
+                              "[",
+                              RowBox[
+                               {
+                                "UndirectedEdge",
+                                "@@@",
+                                RowBox[
+                                 {
+                                  "Flatten",
+                                  "[",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {
+                                      RowBox[
+                                       {
+                                        RowBox[
+                                         {"Partition", "[", RowBox[{"#", ",", "2", ",", "1"}], "]"}
+                                        ],
+                                        "&"
+                                       }
+                                      ],
+                                      "/@",
+                                      RowBox[
+                                       {
+                                        "(",
+                                        RowBox[
+                                         {
+                                          "SetReplace",
+                                          "[",
+                                          RowBox[
+                                           {
+                                            RowBox[
+                                             {"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                                            ],
+                                            ",",
+                                            RowBox[
+                                             {
+                                              "FromAnonymousRules",
+                                              "[",
+                                              RowBox[
+                                               {"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}
+                                              ],
+                                              "]"
+                                             }
+                                            ],
+                                            ",",
+                                            "100",
+                                            ",",
+                                            RowBox[{"Method", "\[Rule]", "\"WolframLanguage\""}]
+                                           }
+                                          ],
+                                          "]"
+                                         }
+                                        ],
+                                        ")"
+                                       }
+                                      ]
+                                     }
+                                    ],
+                                    ",",
+                                    "1"
+                                   }
+                                  ],
+                                  "]"
+                                 }
+                                ]
+                               }
+                              ],
+                              "]"
+                             }
+                            ],
+                            "]"
+                           }
+                          ]
+                         }
+                        ],
+                        "&"
+                       }
+                      ],
+                      ",",
+                      "s678"
+                     }
+                    ],
+                    "]"
+                   }
+                  ]
+                 }
+                ],
+                ";"
+               }
+              ]
+             }
+            ],
+            "Input"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "KeySort",
+               "@",
+               RowBox[{"Counts", "[", "componentCounts678", "]"}]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[28]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Histogram",
+               "[",
+               RowBox[
+                {
+                 "componentCounts678",
+                 ",",
+                 InterpretationBox[
+                  DynamicModuleBox[
+                   {Typeset`open = False},
+                   TemplateBox[
+                    {
+                     "Expression",
+                     "SequenceIcon",
+                     GridBox[
+                      {
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Head: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["Sequence", "IconizedItem"]
+                         }
+                        ]
+                       },
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Length: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["5", "IconizedItem"]
+                         }
+                        ]
+                       },
+                       {
+                        RowBox[
+                         {
+                          TagBox["\"Byte count: \"", "IconizedLabel"],
+                          "\[InvisibleSpace]",
+                          TagBox["472", "IconizedItem"]
+                         }
+                        ]
+                       }
+                      },
+                      GridBoxAlignment -> {"Columns" -> {{Left}}},
+                      DefaultBaseStyle -> "Column",
+                      GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                     ],
+                     Dynamic[Typeset`open]
+                    },
+                    "IconizedObject"
+                   ]
+                  ],
+                  Sequence[
+                   "Log",
+                   "LogCount",
+                   PlotRange -> All,
+                   Frame -> True,
+                   FrameLabel -> {"# of connected components", "# of systems"}
+                  ],
+                  SelectWithContents -> True,
+                  Selectable -> False
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[36]:="
+           ],
+           Cell[
+            "If we have as many connected components as rules, it either means the system\[CloseCurlyQuote]s behavior is repetitive, or that there exists a simpler system (that only keeps the largest component) that would produce a behavior similar to the largest component of the original system.",
+            "Text"
+           ],
+           Cell[
+            TextData[
+             {
+              "So, we will remove the systems that have ",
+              Cell[BoxData[FormBox["97", TraditionalForm]]],
+              " connected components or more"
+             }
+            ],
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[{"ruleMostlyConnected", "[", "ruleIndex_", "]"}],
+               ":=",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "componentCounts678",
+                   "\[LeftDoubleBracket]",
+                   "ruleIndex",
+                   "\[RightDoubleBracket]"
+                  }
+                 ],
+                 "\[LessEqual]",
+                 "96"
+                }
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[62]:="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Single-vertex-input rules", "Subsection"],
+           Cell[
+            "Finally, if a rule\[CloseCurlyQuote]s input only contains a single single-vertex edge, we know this rule can not produce more complex than nested behavior. So, we will filter out those rules as well:",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[{"ruleNotSingleNested", "[", "ruleIndex_", "]"}],
+               ":=",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "s678",
+                   "\[LeftDoubleBracket]",
+                   RowBox[{"ruleIndex", ",", "2", ",", "1", ",", "1"}],
+                   "\[RightDoubleBracket]"
+                  }
+                 ],
+                 "\[NotEqual]",
+                 RowBox[{"{", RowBox[{"{", "1", "}"}], "}"}]
+                }
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[76]:="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["All remaining rules", "Subsection"],
+           Cell[
+            "The rule numbers that survive these filters are",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "interestingRules678",
+                 "=",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "Select",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         RowBox[{"ruleGrows", "[", "#", "]"}],
+                         "&&",
+                         RowBox[{"ruleMostlyConnected", "[", "#", "]"}],
+                         "&&",
+                         RowBox[{"ruleNotSingleNested", "[", "#", "]"}]
+                        }
+                       ],
+                       "&"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   "@",
+                   RowBox[{"Range", "@", RowBox[{"Length", "@", "s678"}]}]
+                  }
+                 ]
+                }
+               ],
+               ";"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[77]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[{"Length", "[", "interestingRules678", "]"}]
+            ],
+            "Input",
+            CellLabel -> "In[78]:="
+           ],
+           Cell[
+            "This is actually possible (if somewhat monotonous) to examine by hand",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Manipulate",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "Column",
+                       "[",
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[
+                            {
+                             "interestingRules678",
+                             "\[LeftDoubleBracket]",
+                             "k",
+                             "\[RightDoubleBracket]"
+                            }
+                           ],
+                           ",",
+                           RowBox[
+                            {
+                             "s678",
+                             "\[LeftDoubleBracket]",
+                             RowBox[
+                              {
+                               "interestingRules678",
+                               "\[LeftDoubleBracket]",
+                               "k",
+                               "\[RightDoubleBracket]"
+                              }
+                             ],
+                             "\[RightDoubleBracket]"
+                            }
+                           ],
+                           ",",
+                           RowBox[
+                            {
+                             "HypergraphPlot",
+                             "[",
+                             RowBox[
+                              {
+                               RowBox[
+                                {
+                                 "SetReplace",
+                                 "[",
+                                 RowBox[
+                                  {
+                                   RowBox[
+                                    {"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}
+                                   ],
+                                   ",",
+                                   RowBox[
+                                    {
+                                     "FromAnonymousRules",
+                                     "[",
+                                     RowBox[
+                                      {"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}
+                                     ],
+                                     "]"
+                                    }
+                                   ],
+                                   ",",
+                                   "100",
+                                   ",",
+                                   RowBox[{"Method", "\[Rule]", "\"WolframLanguage\""}]
+                                  }
+                                 ],
+                                 "]"
+                                }
+                               ],
+                               ",",
+                               RowBox[{"ImageSize", "\[Rule]", "500"}]
+                              }
+                             ],
+                             "]"
+                            }
+                           ]
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       "]"
+                      }
+                     ],
+                     "&"
+                    }
+                   ],
+                   "@",
+                   RowBox[
+                    {
+                     "s678",
+                     "\[LeftDoubleBracket]",
+                     RowBox[
+                      {
+                       "interestingRules678",
+                       "\[LeftDoubleBracket]",
+                       "k",
+                       "\[RightDoubleBracket]"
+                      }
+                     ],
+                     "\[RightDoubleBracket]"
+                    }
+                   ]
+                  }
+                 ],
+                 ",",
+                 RowBox[
+                  {
+                   "{",
+                   RowBox[
+                    {
+                     "k",
+                     ",",
+                     "1",
+                     ",",
+                     RowBox[{"Length", "[", "interestingRules678", "]"}],
+                     ",",
+                     "1"
+                    }
+                   ],
+                   "}"
+                  }
+                 ],
+                 ",",
+                 RowBox[{"SaveDefinitions", "\[Rule]", "True"}]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[80]:="
+           ],
+           Cell["Some notable examples are", "Text"],
+           Cell[
+            "A rule that produces a tree by adding new edges to the ends of existing ones (class 2)",
+            "Item"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "s678",
+               "\[LeftDoubleBracket]",
+               "107854",
+               "\[RightDoubleBracket]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[81]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "s678",
+                     "\[LeftDoubleBracket]",
+                     RowBox[{"107854", ",", "1"}],
+                     "\[RightDoubleBracket]"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       "s678",
+                       "\[LeftDoubleBracket]",
+                       RowBox[{"107854", ",", "2"}],
+                       "\[RightDoubleBracket]"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "4000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[85]:="
+           ],
+           Cell[
+            "A similar rule except it reverses the original edges (class 2)",
+            "Item"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "s678",
+               "\[LeftDoubleBracket]",
+               "107861",
+               "\[RightDoubleBracket]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[86]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "s678",
+                     "\[LeftDoubleBracket]",
+                     RowBox[{"107861", ",", "1"}],
+                     "\[RightDoubleBracket]"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       "s678",
+                       "\[LeftDoubleBracket]",
+                       RowBox[{"107861", ",", "2"}],
+                       "\[RightDoubleBracket]"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "1000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[100]:="
+           ],
+           Cell[
+            "A very simple rule that just makes a circle (class 1)",
+            "Item"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "s678",
+               "\[LeftDoubleBracket]",
+               "107863",
+               "\[RightDoubleBracket]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[89]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "s678",
+                     "\[LeftDoubleBracket]",
+                     RowBox[{"107863", ",", "1"}],
+                     "\[RightDoubleBracket]"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       "s678",
+                       "\[LeftDoubleBracket]",
+                       RowBox[{"107863", ",", "2"}],
+                       "\[RightDoubleBracket]"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "100"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[97]:="
+           ],
+           Cell["Here is another example of class 1", "Item"],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "s678",
+               "\[LeftDoubleBracket]",
+               "117515",
+               "\[RightDoubleBracket]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[91]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "s678",
+                     "\[LeftDoubleBracket]",
+                     RowBox[{"117515", ",", "1"}],
+                     "\[RightDoubleBracket]"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       "s678",
+                       "\[LeftDoubleBracket]",
+                       RowBox[{"117515", ",", "2"}],
+                       "\[RightDoubleBracket]"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "40"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[94]:="
+           ],
+           Cell[
+            "However, we still don\[CloseCurlyQuote]t find class 3 or 4 behavior.",
+            "Text"
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Issues and future work", "Section"],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Rule application order", "Subsection"],
+           Cell[
+            "Rule considered here are not generally causally invariant, meaning that they will produce different networks if rules are applied in a different order.",
+            "Text"
+           ],
+           Cell[
+            "That means there is ambiguity, because we can choose a different application order. In our case, the first rule always takes precedence, and it is applied to oldest edges first.",
+            "Text"
+           ],
+           Cell[
+            "However, we can consider a different order, for instance, we can replace the newest edges first instead. That means we might have missed some potential complexity because we did not evaluate the system in the right order.",
+            "Text"
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["Filtering", "Subsection"],
+           Cell[
+            "We only examined rules up to size 8, above that it becomes quite unmanageable to examine rules by hand. It will be useful to have automatic classification of rules into complexity classes.",
+            "Text"
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell["No class 3 or 4", "Subsection"],
+           Cell[
+            "We did not find any systems that produce class 3 or 4 behavior. We will need to consider larger rules. The simplest known example that still produces complexity is",
+            "Text"
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SetReplace",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}],
+                       ",",
+                       RowBox[{"{", RowBox[{"0", ",", "0"}], "}"}]
+                      }
+                     ],
+                     "}"
+                    }
+                   ],
+                   ",",
+                   RowBox[
+                    {
+                     "FromAnonymousRules",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[{"{", RowBox[{"0", ",", "1"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"0", ",", "2"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"0", ",", "3"}], "}"}]
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       "\[Rule]",
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           RowBox[{"{", RowBox[{"1", ",", "6"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"6", ",", "4"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"6", ",", "5"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"5", ",", "6"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"6", ",", "3"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"3", ",", "4"}], "}"}],
+                           ",",
+                           RowBox[{"{", RowBox[{"5", ",", "2"}], "}"}]
+                          }
+                         ],
+                         "}"
+                        }
+                       ]
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "5000"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "//",
+               InterpretationBox[
+                DynamicModuleBox[
+                 {Typeset`open = False},
+                 TemplateBox[
+                  {
+                   "Expression",
+                   RowBox[
+                    {
+                     "Function",
+                     "[",
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                     ],
+                     "]"
+                    }
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Byte count: \"", "IconizedLabel"],
+                        "\[InvisibleSpace]",
+                        TagBox["288", "IconizedItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}},
+                    DefaultBaseStyle -> "Column",
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                   ],
+                   Dynamic[Typeset`open]
+                  },
+                  "IconizedObject"
+                 ]
+                ],
+                SetReplace`HypergraphPlot[#1, ImageSize -> Scaled[1]] & ,
+                SelectWithContents -> True,
+                Selectable -> False
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[102]:="
+           ],
+           Cell[
+            TextData[
+             {
+              "which is still size 26. So, the only thing we know is that class ",
+              Cell[
+               BoxData[FormBox[RowBox[{"3", "|", "4"}], TraditionalForm]]
+              ],
+              " behavior first appears in a system with a size between ",
+              Cell[BoxData[FormBox["9", TraditionalForm]]],
+              " and ",
+              Cell[BoxData[FormBox["26", TraditionalForm]]],
+              ", and it is an open question which size exactly."
+             }
+            ],
+            "Text"
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Conclusion", "Section"],
+        Cell[
+         TextData[
+          {
+           "We have examined Set Replace systems of up to size ",
+           Cell[BoxData[FormBox["8", TraditionalForm]]],
+           ". We did find rules producing class ",
+           Cell[BoxData[FormBox["1", TraditionalForm]]],
+           " (repetitive) and ",
+           Cell[BoxData[FormBox["2", TraditionalForm]]],
+           " (nesting) behavior, but nothing of class ",
+           Cell[BoxData[FormBox["3", TraditionalForm]]],
+           " (pseudorandom) or ",
+           Cell[BoxData[FormBox["4", TraditionalForm]]],
+           " (complex)."
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         TextData[
+          {
+           "We know class ",
+           Cell[
+            BoxData[FormBox[RowBox[{"3", "|", "4"}], TraditionalForm]]
+           ],
+           " behavior first appears in system sizes between ",
+           Cell[BoxData[FormBox["9", TraditionalForm]]],
+           " and ",
+           Cell[BoxData[FormBox["26", TraditionalForm]]],
+           ", but it is an open question to pinpoint it to a specific size."
+          }
+         ],
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ]
     },
     Open
    ]
