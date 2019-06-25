@@ -4,20 +4,11 @@ Notebook[
    CellGroupData[
     {
      Cell[
-      TextData[
-       {
-        "< Essay Title ",
-        StyleBox[
-         "(The first cell that is formatted as \[OpenCurlyDoubleQuote]Title\[CloseCurlyDoubleQuote] will be the title we use for your essay) ",
-         FontSize -> 16
-        ],
-        ">"
-       }
-      ],
+      "The Simplest Set Replace Rules",
       "Title",
       CellTags -> "Title"
      ],
-     Cell["< First and Last name>", "Text"]
+     Cell["Maksim Piskunov", "Text"]
     },
     Open
    ]
