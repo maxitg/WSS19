@@ -1,0 +1,2780 @@
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell["Double-slit Experiment with SetReplace", "Title"],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Prerequisites", "Section"],
+        Cell[
+         TextData[
+          {
+           "We will be using ",
+           ButtonBox[
+            "SetReplace package",
+            BaseStyle -> "Hyperlink",
+            ButtonData -> {URL["https://github.com/maxitg/SetReplace"], None},
+            ButtonNote -> "https://github.com/maxitg/SetReplace"
+           ],
+           " for this essay."
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[
+              {
+               "If",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     RowBox[{"PacletInformation", "[", "\"SetReplace\"", "]"}],
+                     " ",
+                     "===",
+                     " ",
+                     RowBox[{"{", "}"}]
+                    }
+                   ],
+                   " ",
+                   "&&",
+                   "\n",
+                   "\t\t",
+                   RowBox[
+                    {
+                     "ChoiceDialog",
+                     "[",
+                     "\"SetReplace paclet needs to be installed. Proceed?\"",
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 ",",
+                 "\n",
+                 "\t",
+                 RowBox[
+                  {
+                   "PacletInstall",
+                   "[",
+                   "\n",
+                   "\t\t",
+                   "\"https://github.com/maxitg/SetReplace/releases/download/0.1/SetReplace-0.1.paclet\"",
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ],
+             ";"
+            }
+           ],
+           "\n",
+           RowBox[{RowBox[{"<<", " ", "SetReplace`"}], ";"}]
+          }
+         ],
+         "Code",
+         CellLabel -> "In[37]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["A simplest example", "Section"],
+        Cell[
+         TextData[
+          {
+           "Let\[CloseCurlyQuote]s consider a double slit experiment. The simplest version of it could look something like this, where a particle is represented by a single-vertex edge (colored ",
+           Cell[
+            BoxData[
+             InterpretationBox[
+              ButtonBox[
+               TooltipBox[
+                GraphicsBox[
+                 {
+                  {GrayLevel[0], RectangleBox[{0, 0}]},
+                  {GrayLevel[0], RectangleBox[{1, -1}]},
+                  {
+                   RGBColor[0.880722, 0.611041, 0.142051],
+                   RectangleBox[{0, -1}, {2, 1}]
+                  }
+                 },
+                 AspectRatio -> 1,
+                 DefaultBaseStyle -> "ColorSwatchGraphics",
+                 Frame -> True,
+                 FrameStyle -> RGBColor[
+                  0.587148,
+                  0.407361,
+                  0.0947007
+                 ],
+                 FrameTicks -> None,
+                 ImageSize -> Dynamic[
+                  {
+                   Automatic,
+                   Times[
+                    1.35,
+                    CurrentValue["FontCapHeight"],
+                    AbsoluteCurrentValue[Magnification]^(-1)
+                   ]
+                  }
+                 ],
+                 PlotRangePadding -> None
+                ],
+                StyleBox[
+                 RowBox[
+                  {
+                   "RGBColor",
+                   "[",
+                   RowBox[{"0.880722`", ",", "0.611041`", ",", "0.142051`"}],
+                   "]"
+                  }
+                 ],
+                 NumberMarks -> False
+                ]
+               ],
+               Appearance -> None,
+               BaseStyle -> { },
+               BaselinePosition -> Baseline,
+               ButtonFunction :> With[
+                {Typeset`box$ = EvaluationBox[]},
+                If[
+                 Not[AbsoluteCurrentValue["Deployed"]],
+                 SelectionMove[Typeset`box$, All, Expression];
+                 FrontEnd`Private`$ColorSelectorInitialAlpha = 1;
+                 FrontEnd`Private`$ColorSelectorInitialColor = RGBColor[0.880722, 0.611041, 0.142051];
+                 FrontEnd`Private`$ColorSelectorUseMakeBoxes = True;
+                 MathLink`CallFrontEnd[
+                  FrontEnd`AttachCell[
+                   Typeset`box$,
+                   FrontEndResource["RGBColorValueSelector"],
+                   {0, {Left, Bottom}},
+                   {Left, Top},
+                   "ClosingActions" -> {"SelectionDeparture", "ParentChanged", "EvaluatorQuit"}
+                  ]
+                 ]
+                ]
+               ],
+               DefaultBaseStyle -> { },
+               Evaluator -> Automatic,
+               Method -> "Preemptive"
+              ],
+              RGBColor[0.880722, 0.611041, 0.142051],
+              Editable -> False,
+              Selectable -> False
+             ]
+            ]
+           ],
+           " in the graph):"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "initSimplest",
+                "=",
+                RowBox[
+                 {
+                  "{",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    RowBox[{"{", "1", "}"}],
+                    ",",
+                    RowBox[
+                     {
+                      "(*",
+                      " ",
+                      RowBox[
+                       {
+                        "particle",
+                        " ",
+                        "at",
+                        " ",
+                        "initial",
+                        " ",
+                        "position",
+                        " ",
+                        "1"
+                       }
+                      ],
+                      " ",
+                      "*)"
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    RowBox[{"{", RowBox[{"1", ",", "h1"}], "}"}],
+                    ",",
+                    RowBox[{"{", RowBox[{"1", ",", "h2"}], "}"}],
+                    ",",
+                    " ",
+                    RowBox[
+                     {
+                      "(*",
+                      " ",
+                      RowBox[
+                       {
+                        "routes",
+                        " ",
+                        "from",
+                        " ",
+                        "1",
+                        " ",
+                        "to",
+                        " ",
+                        "holes",
+                        " ",
+                        "h1",
+                        " ",
+                        "and",
+                        " ",
+                        "h2"
+                       }
+                      ],
+                      " ",
+                      "*)"
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    RowBox[{"{", RowBox[{"h1", ",", RowBox[{"-", "1"}]}], "}"}],
+                    ",",
+                    RowBox[{"{", RowBox[{"h2", ",", RowBox[{"-", "1"}]}], "}"}]
+                   }
+                  ],
+                  " ",
+                  RowBox[
+                   {
+                    "(*",
+                    " ",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "routes",
+                        " ",
+                        "from",
+                        " ",
+                        "holes",
+                        " ",
+                        "to",
+                        " ",
+                        "final",
+                        " ",
+                        "position"
+                       }
+                      ],
+                      " ",
+                      "-",
+                      "1"
+                     }
+                    ],
+                    " ",
+                    "*)"
+                   }
+                  ],
+                  "\[IndentingNewLine]",
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["760", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              HypergraphPlot[
+               #1,
+               VertexLabels -> {
+                1 -> "Start",
+                h1 -> "\!\(\*SubscriptBox[\(Hole\), \(1\)]\)",
+                h2 -> "\!\(\*SubscriptBox[\(Hole\), \(2\)]\)",
+                -1 -> "Finish"
+               }
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[104]:="
+        ],
+        Cell[
+         "The rule moves the particle, which is represented by a single-vertex edge:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "ruleSimplest",
+                "=",
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "{",
+                    RowBox[
+                     {
+                      RowBox[{"{", "1", "}"}],
+                      ",",
+                      RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}]
+                     }
+                    ],
+                    "}"
+                   }
+                  ],
+                  "\[Rule]",
+                  RowBox[
+                   {
+                    "{",
+                    RowBox[
+                     {
+                      RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}],
+                      ",",
+                      RowBox[{"{", "2", "}"}]
+                     }
+                    ],
+                    "}"
+                   }
+                  ]
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["168", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Map[HypergraphPlot, #] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[107]:="
+        ],
+        Cell[
+         "One possible evolution is this, the other one is when the particle goes through the other hole.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "HypergraphPlot",
+            "/@",
+            RowBox[
+             {
+              "Most",
+              "@",
+              RowBox[
+               {
+                "SetReplaceFixedPointList",
+                "[",
+                RowBox[
+                 {
+                  "initSimplest",
+                  ",",
+                  RowBox[{"FromAnonymousRules", "[", "ruleSimplest", "]"}]
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[108]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Multiple end positions for the particle", "Section"],
+        Cell[
+         "Now, what if we have more possibilities exiting the holes?",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "initThreeEnds",
+                "=",
+                RowBox[
+                 {
+                  "{",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    RowBox[{"{", "start", "}"}],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        "start",
+                        ",",
+                        RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[{"start", ",", RowBox[{"hole", "[", "1", "]"}]}],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                        ",",
+                        RowBox[
+                         {
+                          "path",
+                          "[",
+                          RowBox[
+                           {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                          ],
+                          "]"
+                         }
+                        ]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "path",
+                          "[",
+                          RowBox[
+                           {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                          ],
+                          "]"
+                         }
+                        ],
+                        ",",
+                        RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", "1", "]"}],
+                        ",",
+                        RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                        ",",
+                        RowBox[{"end", "[", "0", "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", "1", "]"}],
+                        ",",
+                        RowBox[{"end", "[", "0", "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                        ",",
+                        RowBox[{"end", "[", "1", "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[{"hole", "[", "1", "]"}],
+                        ",",
+                        RowBox[
+                         {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                        ]
+                       }
+                      ],
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      RowBox[
+                       {
+                        RowBox[
+                         {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                        ],
+                        ",",
+                        RowBox[{"end", "[", "1", "]"}]
+                       }
+                      ],
+                      "}"
+                     }
+                    ]
+                   }
+                  ],
+                  "\[IndentingNewLine]",
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["2176", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              HypergraphPlot[
+               #1,
+               VertexLabels -> "Name",
+               VertexCoordinates -> (coordinatesThreeEnds = {
+                start -> {0, 0},
+                end[-1] -> {3, -1},
+                end[0] -> {3, 0},
+                end[1] -> {3, 1},
+                hole[-1] -> {1, -0.5},
+                hole[1] -> {1, 0.5},
+                path[-1, -1, 1] -> {2, -0.7},
+                path[1, 1, 1] -> {2, 0.7}
+               })
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[118]:="
+        ],
+        Cell[
+         "This now emulates the plane on the other side of the slits, where we should expect to see interference pattern (including sometimes destructive interference). Note, we cannot use classical probability to describe this system, because we cannot get destructive interference this way.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "Most",
+              "@",
+              RowBox[
+               {
+                "SetReplaceFixedPointList",
+                "[",
+                RowBox[
+                 {
+                  "initThreeEnds",
+                  ",",
+                  RowBox[{"FromAnonymousRules", "[", "ruleSimplest", "]"}]
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["392", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               Function[
+                HypergraphPlot[
+                 #1,
+                 VertexCoordinates -> coordinatesThreeEnds
+                ]
+               ],
+               #1
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[119]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Oscillating particle", "Section"],
+        Cell[
+         "Perhaps, to get a changing phase, we can make the particle oscillate, say, between a single-vertex edge and a loop:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "rulesOscillating",
+                "=",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", "1", "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[Rule]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"2", ",", "2", ",", "2"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"1", ",", "1", ",", "1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[Rule]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"1", ",", "2"}], "}"}],
+                          ",",
+                          RowBox[{"{", "2", "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ],
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["240", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Map[HypergraphPlot, #1, {2}] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[151]:="
+        ],
+        Cell[
+         "Now, particles arrive to the plane with different phases. Only one possible history is shown below, but it is easy to imagine other histories where the particle will arrive with a different phase:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SetReplace",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "initThreeEnds",
+                        "=",
+                        RowBox[
+                         {
+                          "Map",
+                          "[",
+                          RowBox[
+                           {
+                            "ToString",
+                            ",",
+                            RowBox[
+                             {
+                              "{",
+                              "\[IndentingNewLine]",
+                              RowBox[
+                               {
+                                RowBox[{"{", "start", "}"}],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    "start",
+                                    ",",
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[{"start", ",", RowBox[{"hole", "[", "1", "]"}]}],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[
+                                     {
+                                      "path",
+                                      "[",
+                                      RowBox[
+                                       {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                                      ],
+                                      "]"
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {
+                                      "path",
+                                      "[",
+                                      RowBox[
+                                       {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                                      ],
+                                      "]"
+                                     }
+                                    ],
+                                    ",",
+                                    RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "0", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "0", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "1", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[
+                                     {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                                    ]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                                    ],
+                                    ",",
+                                    RowBox[{"end", "[", "1", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ]
+                               }
+                              ],
+                              "\[IndentingNewLine]",
+                              "}"
+                             }
+                            ],
+                            ",",
+                            RowBox[{"{", "2", "}"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       }
+                      ],
+                      ",",
+                      RowBox[
+                       {"FromAnonymousRules", "[", "rulesOscillating", "]"}
+                      ],
+                      ",",
+                      "#",
+                      ",",
+                      RowBox[{"Method", "\[Rule]", "\"C++\""}]
+                     }
+                    ],
+                    "]"
+                   }
+                  ],
+                  "&"
+                 }
+                ],
+                "/@",
+                RowBox[{"Range", "[", "3", "]"}]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["624", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               Function[
+                HypergraphPlot[
+                 #1,
+                 VertexCoordinates -> Normal[
+                  KeyMap[
+                   ToString,
+                   Association[coordinatesThreeEnds]
+                  ]
+                 ],
+                 ImageSize -> 400
+                ]
+               ],
+               #1
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[195]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Many particles", "Section"],
+        Cell[
+         "In fact, let\[CloseCurlyQuote]s consider a large number of particles:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SetReplace",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "initThreeEnds12",
+                        "=",
+                        RowBox[
+                         {
+                          "Map",
+                          "[",
+                          RowBox[
+                           {
+                            "ToString",
+                            ",",
+                            RowBox[
+                             {
+                              "{",
+                              "\[IndentingNewLine]",
+                              RowBox[
+                               {
+                                RowBox[
+                                 {
+                                  "Sequence",
+                                  "@@",
+                                  RowBox[
+                                   {
+                                    "Table",
+                                    "[",
+                                    RowBox[{RowBox[{"{", "start", "}"}], ",", "12"}],
+                                    "]"
+                                   }
+                                  ]
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    "start",
+                                    ",",
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[{"start", ",", RowBox[{"hole", "[", "1", "]"}]}],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[
+                                     {
+                                      "path",
+                                      "[",
+                                      RowBox[
+                                       {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                                      ],
+                                      "]"
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {
+                                      "path",
+                                      "[",
+                                      RowBox[
+                                       {RowBox[{"-", "1"}], ",", RowBox[{"-", "1"}], ",", "1"}
+                                      ],
+                                      "]"
+                                     }
+                                    ],
+                                    ",",
+                                    RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", RowBox[{"-", "1"}], "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "0", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "0", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                "\[IndentingNewLine]",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                                    ",",
+                                    RowBox[{"end", "[", "1", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"hole", "[", "1", "]"}],
+                                    ",",
+                                    RowBox[
+                                     {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                                    ]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                ",",
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {"path", "[", RowBox[{"1", ",", "1", ",", "1"}], "]"}
+                                    ],
+                                    ",",
+                                    RowBox[{"end", "[", "1", "]"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ]
+                               }
+                              ],
+                              "\[IndentingNewLine]",
+                              "}"
+                             }
+                            ],
+                            ",",
+                            RowBox[{"{", "2", "}"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       }
+                      ],
+                      ",",
+                      RowBox[
+                       {"FromAnonymousRules", "[", "rulesOscillating", "]"}
+                      ],
+                      ",",
+                      "#",
+                      ",",
+                      RowBox[{"Method", "\[Rule]", "\"C++\""}]
+                     }
+                    ],
+                    "]"
+                   }
+                  ],
+                  "&"
+                 }
+                ],
+                "/@",
+                RowBox[{"{", RowBox[{"0", ",", "100"}], "}"}]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["624", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               Function[
+                HypergraphPlot[
+                 #1,
+                 VertexCoordinates -> Normal[
+                  KeyMap[
+                   ToString,
+                   Association[coordinatesThreeEnds]
+                  ]
+                 ],
+                 ImageSize -> 400
+                ]
+               ],
+               #1
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[226]:="
+        ],
+        Cell[
+         "One can see that we now have different kinds of situation: we either have particles all in the same phase at the end (like in the middle), or we have a combination of multiple phases (like at the ends).",
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Annihilation", "Section"],
+        Cell[
+         "Now, the trick is to annihilate the particles if they arrive at different phases:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SetReplace",
+                    "[",
+                    RowBox[
+                     {
+                      "initThreeEnds12",
+                      ",",
+                      RowBox[
+                       {
+                        "FromAnonymousRules",
+                        "[",
+                        RowBox[
+                         {
+                          "Join",
+                          "[",
+                          RowBox[
+                           {
+                            "rulesOscillating",
+                            ",",
+                            RowBox[
+                             {
+                              "{",
+                              RowBox[
+                               {
+                                RowBox[
+                                 {
+                                  "{",
+                                  RowBox[
+                                   {
+                                    RowBox[{"{", RowBox[{"1", ",", "1", ",", "1"}], "}"}],
+                                    ",",
+                                    RowBox[{"{", "1", "}"}]
+                                   }
+                                  ],
+                                  "}"
+                                 }
+                                ],
+                                "\[Rule]",
+                                RowBox[{"{", "}"}]
+                               }
+                              ],
+                              "}"
+                             }
+                            ]
+                           }
+                          ],
+                          "]"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "#",
+                      ",",
+                      RowBox[{"Method", "\[Rule]", "\"C++\""}]
+                     }
+                    ],
+                    "]"
+                   }
+                  ],
+                  "&"
+                 }
+                ],
+                "/@",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    "0",
+                    ",",
+                    "28",
+                    ",",
+                    "29",
+                    ",",
+                    "30",
+                    ",",
+                    "31",
+                    ",",
+                    "32"
+                   }
+                  ],
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["624", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               Function[
+                HypergraphPlot[
+                 #1,
+                 VertexCoordinates -> Normal[
+                  KeyMap[
+                   ToString,
+                   Association[coordinatesThreeEnds]
+                  ]
+                 ],
+                 ImageSize -> 400
+                ]
+               ],
+               #1
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[227]:="
+        ],
+        Cell[
+         "This, however, is still not consistent with quantum mechanics, as if one was to do the double-slit experiment one particle at a time, resetting the experiment entirely after capturing each particle, that would not yield an interference pattern.",
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Simultaneous propagation", "Section"],
+        Cell[
+         TextData[
+          {
+           "The last thing we will consider that does appear to describe realistic double-slit experiment is this. Imagine the space structured as a binary tree. Let\[CloseCurlyQuote]s further define a particle as ",
+           Cell[
+            BoxData[
+             FormBox[
+              RowBox[{"{", RowBox[{"0", ",", "s_"}], "}"}],
+              TraditionalForm
+             ]
+            ]
+           ],
+           ", where ",
+           Cell[BoxData[FormBox["0", TraditionalForm]]],
+           " is an explicitly named vertex, and ",
+           Cell[BoxData[FormBox["s", TraditionalForm]]],
+           " is any vertex which is part of space network."
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         "We first construct an initial condition, which has binary splits at each point. Note there is a particle at the top, that is connected to start, there are various paths through the system, some of which have odd, and some even number of steps to get there.",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "initBinary",
+                "=",
+                RowBox[
+                 {
+                  "Map",
+                  "[",
+                  RowBox[
+                   {
+                    "ToString",
+                    ",",
+                    RowBox[
+                     {
+                      "{",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        RowBox[{"{", RowBox[{"particle", ",", "start"}], "}"}],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            "start",
+                            ",",
+                            RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[{"start", ",", RowBox[{"hole", "[", "1", "]"}]}],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                            ",",
+                            RowBox[
+                             {"path", "[", RowBox[{"1", ",", RowBox[{"-", "2"}]}], "]"}
+                            ]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"hole", "[", RowBox[{"-", "1"}], "]"}],
+                            ",",
+                            RowBox[{"path", "[", RowBox[{"1", ",", "0"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"hole", "[", "1", "]"}],
+                            ",",
+                            RowBox[{"path", "[", RowBox[{"1", ",", "0"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"hole", "[", "1", "]"}],
+                            ",",
+                            RowBox[{"path", "[", RowBox[{"1", ",", "2"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"1", ",", "0"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", RowBox[{"-", "2"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"1", ",", "0"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", "2", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"1", ",", RowBox[{"-", "2"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "3"}]}], "]"}
+                            ]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"1", ",", RowBox[{"-", "2"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "1"}]}], "]"}
+                            ]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"1", ",", "2"}], "]"}],
+                            ",",
+                            RowBox[{"path", "[", RowBox[{"2", ",", "1"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"1", ",", "2"}], "]"}],
+                            ",",
+                            RowBox[{"path", "[", RowBox[{"2", ",", "3"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "3"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[{"end", "[", RowBox[{"-", "4"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "3"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[{"end", "[", RowBox[{"-", "2"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "1"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[{"end", "[", RowBox[{"-", "2"}], "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[
+                             {"path", "[", RowBox[{"2", ",", RowBox[{"-", "1"}]}], "]"}
+                            ],
+                            ",",
+                            RowBox[{"end", "[", "0", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"2", ",", "1"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", "0", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"2", ",", "1"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", "2", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"2", ",", "3"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", "2", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        ",",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            RowBox[{"path", "[", RowBox[{"2", ",", "3"}], "]"}],
+                            ",",
+                            RowBox[{"end", "[", "4", "]"}]
+                           }
+                          ],
+                          "}"
+                         }
+                        ]
+                       }
+                      ],
+                      "\[IndentingNewLine]",
+                      "}"
+                     }
+                    ],
+                    ",",
+                    RowBox[{"{", "2", "}"}]
+                   }
+                  ],
+                  "]"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["256", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[561]:="
+        ],
+        Cell[
+         "We still need to make the particle oscillate, so we will have it go between a single edge, and a 3-vertex edge that returns back to the particle, like so:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "ruleBranching",
+                "=",
+                RowBox[
+                 {
+                  "{",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "s_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e1_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e2_"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[RuleDelayed]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"s", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s", ",", "e2"}], "}"}],
+                          ",",
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "e1", ",", "e1"}], "}"}
+                          ],
+                          ",",
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "e2", ",", "e2"}], "}"}
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "s_", ",", "s_"}], "}"}
+                          ],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e1_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e2_"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[RuleDelayed]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"s", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s", ",", "e2"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "e2"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ],
+                  "\[IndentingNewLine]",
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["608", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+               ReplaceAll[#1, RuleDelayed -> Rule],
+               {2}
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[580]:="
+        ],
+        Cell[
+         "We see now the particle ends up at the end, sometimes in a single phase, and sometimes in a combination of various phases:",
+         "Text"
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "SetReplace",
+              "[",
+              RowBox[
+               {
+                "initBinary",
+                ",",
+                "ruleBranching",
+                ",",
+                "1000",
+                ",",
+                RowBox[{"Method", "\[Rule]", "\"C++\""}]
+               }
+              ],
+              "]"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["256", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[582]:="
+        ],
+        Cell["Finally, add annihilation:", "Text"],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "(",
+              RowBox[
+               {
+                "ruleBranchingAnnihilating",
+                "=",
+                RowBox[
+                 {
+                  "{",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "s_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e1_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e2_"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[RuleDelayed]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"s", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s", ",", "e2"}], "}"}],
+                          ",",
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "e1", ",", "e1"}], "}"}
+                          ],
+                          ",",
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "e2", ",", "e2"}], "}"}
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "s_", ",", "s_"}], "}"}
+                          ],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e1_"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s_", ",", "e2_"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[RuleDelayed]",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"s", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"s", ",", "e2"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "e1"}], "}"}],
+                          ",",
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "e2"}], "}"}]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          RowBox[{"{", RowBox[{"\"particle\"", ",", "s_"}], "}"}],
+                          ",",
+                          RowBox[
+                           {"{", RowBox[{"\"particle\"", ",", "s_", ",", "s_"}], "}"}
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ],
+                      "\[RuleDelayed]",
+                      RowBox[{"{", "}"}]
+                     }
+                    ]
+                   }
+                  ],
+                  "\[IndentingNewLine]",
+                  "}"
+                 }
+                ]
+               }
+              ],
+              ")"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["608", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             Function[
+              Map[
+               HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+               ReplaceAll[#1, RuleDelayed -> Rule],
+               {2}
+              ]
+             ],
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[583]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {
+              "SetReplace",
+              "[",
+              RowBox[
+               {
+                "initBinary",
+                ",",
+                "ruleBranchingAnnihilating",
+                ",",
+                "1000",
+                ",",
+                RowBox[{"Method", "\[Rule]", "\"C++\""}]
+               }
+              ],
+              "]"
+             }
+            ],
+            "//",
+            InterpretationBox[
+             DynamicModuleBox[
+              {Typeset`open = False},
+              TemplateBox[
+               {
+                "Expression",
+                RowBox[
+                 {
+                  "Function",
+                  "[",
+                  DynamicBox[
+                   FEPrivate`FrontEndResource["FEBitmaps", "IconizeEllipsis"]
+                  ],
+                  "]"
+                 }
+                ],
+                GridBox[
+                 {
+                  {
+                   RowBox[
+                    {
+                     TagBox["\"Byte count: \"", "IconizedLabel"],
+                     "\[InvisibleSpace]",
+                     TagBox["256", "IconizedItem"]
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}},
+                 DefaultBaseStyle -> "Column",
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+                ],
+                Dynamic[Typeset`open]
+               },
+               "IconizedObject"
+              ]
+             ],
+             HypergraphPlot[#1, VertexLabels -> "Name"] & ,
+             SelectWithContents -> True,
+             Selectable -> False
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[584]:="
+        ],
+        Cell[
+         "Now, end[2] and end[-2] are completely disconnected from the particle, thus we obtained destructive annihilation. Note that we started with just a single particle to achieve that.",
+         "Text"
+        ],
+        Cell[
+         "The problem with this though, is that there are no probabilities involved. We get the entire interference pattern after a single particle evolution. Perhaps further interactions make all connections from \[OpenCurlyDoubleQuote]particle\[CloseCurlyDoubleQuote] to disappear except for one, but it is not clear as how will that happen.",
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell["Conclusion", "Section"],
+        Cell[
+         "We can achieve interference pattern by using phases, however, we get one of the two issues:",
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            "Multiple particles needs to be launched at the same time, launching them separately would not produce annihilation.",
+            "ItemNumbered"
+           ],
+           Cell[
+            "A single particle splits into everywhere, thus we can produce annihilation pattern in one shot, however, in this case the result is completely deterministic.",
+            "ItemNumbered"
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         "Both of which are not consistent with quantum physics as we know it, so additional exploration is necessary.",
+         "Text"
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ]
+ },
+ StyleDefinitions -> "Default.nb"
+]
