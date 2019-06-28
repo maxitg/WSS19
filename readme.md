@@ -3,7 +3,7 @@
 ## Quantum SetReplace [Final Project]
 The goal is to understand how quantum physics might work in [SetReplace](https://github.com/maxitg/SetReplace) systems.
 
-The basic idea is to consider SetRepalce systems, which are not necessarily confluent. That means, they will have critical pairs, which are the pairs of potential substitution events, which produce different outputs. If we allow the system to evolve, we will get a multiway system in which different branches do not interact.
+The basic idea is to consider SetReplace systems, which are not necessarily confluent. That means, they will have critical pairs, which are the pairs of potential substitution events, which produce different outputs. If we allow the system to evolve, we will get a multiway system in which different branches do not interact.
 
 That has a certain resemblance to the many-worlds interpretation of quantum physics, except probabilities are combined in the wrong way.
 
